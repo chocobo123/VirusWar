@@ -19,7 +19,7 @@ namespace VirusWar
 
         protected Int32 size;
 
-        public enum Item { Empty, Virus1, Virus2, Zomby1, Zomby2 };
+        public enum Item { Empty, Virus1, Virus2, Zombie1, Zombie2 };
         protected Item[,] field;
         public const Int32 ItemSize = 32;
 
@@ -34,14 +34,54 @@ namespace VirusWar
 
             field[2, 2] = Item.Virus1;
             field[3, 2] = Item.Virus2;
-            field[4, 2] = Item.Zomby1;
-            field[5, 2] = Item.Zomby2;
+            field[4, 2] = Item.Zombie1;
+            field[5, 2] = Item.Zombie2;
         }
 
         public Boolean isItemEmpty(Int32 x, Int32 y)
         {
-            
             return field[x,y]==Item.Empty;
+        }
+
+        public Boolean isThereItem(Int32 x, Int32 y)
+        {
+            return field[x, y] == Item.Virus2;
+        }
+
+        public void searchForVirus(Int32 x, Int32 y)
+        {
+            Int32 i = x;
+            Int32 j = y;
+            List<Item> neighbor = new List<Item>();
+
+            
+                
+                if (field[i - 1, j - 1] == Item.Zombie1)
+                    neighbor.Add(field[i - 1, j - 1]);
+
+                if (field[i - 1, j] == Item.Zombie1)
+                    neighbor.Add(field[i - 1, j]);
+
+                if (field[i - 1, j + 1] == Item.Zombie1)
+                    neighbor.Add(field[i - 1, j + 1]);
+
+                if (field[i, j - 1] == Item.Zombie1)
+                    neighbor.Add(field[i, j - 1]);
+
+                if (field[i, j + 1] == Item.Zombie1)
+                    neighbor.Add(field[i, j + 1]);
+
+                if (field[i + 1, j - 1] == Item.Zombie1)
+                    neighbor.Add(field[i + 1, j - 1]);
+
+                if (field[i + 1, j] == Item.Zombie1)
+                    neighbor.Add(field[i + 1, j]);
+
+                if (field[i + 1, j + 1] == Item.Zombie1)
+                    neighbor.Add(field[i + 1, j + 1]);
+                
+
+            
         }
 
         public void setItem(Int32 x, Int32 y, Item item)
@@ -69,18 +109,17 @@ namespace VirusWar
                             g.DrawImage(img3, i * ItemSize, j * ItemSize, ItemSize, ItemSize);
                             break;
 
-                        case Item.Zomby1:
+                        case Item.Zombie1:
                             g.DrawImage(img4, i * ItemSize, j * ItemSize, ItemSize, ItemSize);
                             break;
 
-                        case Item.Zomby2:
+                        case Item.Zombie2:
                             g.DrawImage(img5, i * ItemSize, j * ItemSize, ItemSize, ItemSize);
                             break;
                     }
                 }
             }
 
-            //Linien ins Spielfeld zeichen
             for (int i = 0; i < size+1; i++)
             {
                 g.DrawLine(Pens.Black, 0, i * ItemSize, ItemSize*11, i * ItemSize);

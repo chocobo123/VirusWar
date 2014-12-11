@@ -38,8 +38,10 @@ namespace VirusWar
             if (field.isItemEmpty(xVal, yVal))
                 field.setItem(xVal, yVal, Field.Item.Virus1);
 
-            pictureBox1.Refresh();
+            if (field.isThereItem(xVal, yVal))
+                field.setItem(xVal, yVal, Field.Item.Zombie1);
 
+            pictureBox1.Refresh();
         }
     }
 }
