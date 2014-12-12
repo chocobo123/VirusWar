@@ -35,6 +35,9 @@ namespace VirusWar
             field[2, 2] = Item.Virus1;
             field[3, 2] = Item.Virus2;
             field[4, 2] = Item.Zombie1;
+            field[4, 3] = Item.Zombie1;
+            field[4, 4] = Item.Zombie1;
+            field[5, 5] = Item.Zombie1;
             field[5, 2] = Item.Zombie2;
         }
 
@@ -48,40 +51,108 @@ namespace VirusWar
             return field[x, y] == Item.Virus2;
         }
 
-        public void searchForVirus(Int32 x, Int32 y)
+        public Boolean searchForVirus(Int32 x, Int32 y)
         {
-            Int32 i = x;
-            Int32 j = y;
-            List<Item> neighbor = new List<Item>();
 
-            
-                
-                if (field[i - 1, j - 1] == Item.Zombie1)
-                    neighbor.Add(field[i - 1, j - 1]);
+            List<Point> fieldsToAnalyze = new List<Point>();
+            List<Point> analyzedFields = new List<Point>();
 
-                if (field[i - 1, j] == Item.Zombie1)
-                    neighbor.Add(field[i - 1, j]);
+            if (field[x, y] == Item.Empty || field[x, y] == Item.Virus2)
+            {
+                fieldsToAnalyze.Add(new Point(x, y));
+            }
 
-                if (field[i - 1, j + 1] == Item.Zombie1)
-                    neighbor.Add(field[i - 1, j + 1]);
+            while (fieldsToAnalyze.Count > 0)
+            {
 
-                if (field[i, j - 1] == Item.Zombie1)
-                    neighbor.Add(field[i, j - 1]);
+                Point pos = fieldsToAnalyze[0];
+                fieldsToAnalyze.RemoveAt(0);
+                analyzedFields.Add(pos);
 
-                if (field[i, j + 1] == Item.Zombie1)
-                    neighbor.Add(field[i, j + 1]);
+                Point pos1 = new Point(pos.X - 1, pos.Y - 1);
+                Point pos2 = new Point(pos.X - 1, pos.Y);
+                Point pos3 = new Point(pos.X - 1, pos.Y + 1);
+                Point pos4 = new Point(pos.X, pos.Y - 1);
+                Point pos5 = new Point(pos.X, pos.Y + 1);
+                Point pos6 = new Point(pos.X + 1, pos.Y - 1);
+                Point pos7 = new Point(pos.X + 1, pos.Y);
+                Point pos8 = new Point(pos.X + 1, pos.Y + 1);
 
-                if (field[i + 1, j - 1] == Item.Zombie1)
-                    neighbor.Add(field[i + 1, j - 1]);
+                #region " Fields "
+                if (!analyzedFields.Contains(pos1) && pos.X > 0 && pos.Y > 0 && field[pos.X - 1, pos.Y - 1] == Item.Virus1)
+                {
+                    return true;
+                }
+                else if (!analyzedFields.Contains(pos1) && pos.X > 0 && pos.Y > 0 && field[pos.X - 1, pos.Y - 1] == Item.Zombie1)
+                {
+                    fieldsToAnalyze.Add(pos1);
+                }
 
-                if (field[i + 1, j] == Item.Zombie1)
-                    neighbor.Add(field[i + 1, j]);
+                if (!analyzedFields.Contains(pos2) && pos.X > 0 && field[pos.X - 1, pos.Y] == Item.Virus1)
+                {
+                    return true;
+                }
+                else if (!analyzedFields.Contains(pos2) && pos.X > 0 && field[pos.X - 1, pos.Y] == Item.Zombie1)
+                {
+                    fieldsToAnalyze.Add(pos2);
+                }
 
-                if (field[i + 1, j + 1] == Item.Zombie1)
-                    neighbor.Add(field[i + 1, j + 1]);
-                
+                if (!analyzedFields.Contains(pos3) && pos.X > 0 && pos.Y < size - 1 && field[pos.X - 1, pos.Y + 1] == Item.Virus1)
+                {
+                    return true;
+                }
+                else if (!analyzedFields.Contains(pos3) && pos.X > 0 && pos.Y < size - 1 && field[pos.X - 1, pos.Y + 1] == Item.Zombie1)
+                {
+                    fieldsToAnalyze.Add(pos3);
+                }
 
-            
+                if (!analyzedFields.Contains(pos4) && pos.Y > 0 && field[pos.X, pos.Y - 1] == Item.Virus1)
+                {
+                    return true;
+                }
+                else if (!analyzedFields.Contains(pos4) && pos.Y > 0 && field[pos.X, pos.Y - 1] == Item.Zombie1)
+                {
+                    fieldsToAnalyze.Add(pos4);
+                }
+
+                if (!analyzedFields.Contains(pos5) && pos.Y < size - 1 && field[pos.X, pos.Y + 1] == Item.Virus1)
+                {
+                    return true;
+                }
+                else if (!analyzedFields.Contains(pos5) && pos.Y < size - 1 && field[pos.X, pos.Y + 1] == Item.Zombie1)
+                {
+                    fieldsToAnalyze.Add(pos5);
+                }
+
+                if (!analyzedFields.Contains(pos6) && pos.X < size - 1 && pos.Y > 0 && field[pos.X + 1, pos.Y - 1] == Item.Virus1)
+                {
+                    return true;
+                }
+                else if (!analyzedFields.Contains(pos6) && pos.X < size - 1 && pos.Y > 0 && field[pos.X + 1, pos.Y - 1] == Item.Zombie1)
+                {
+                    fieldsToAnalyze.Add(pos6);
+                }
+
+                if (!analyzedFields.Contains(pos7) && pos.X < size - 1 && field[pos.X + 1, pos.Y] == Item.Virus1)
+                {
+                    return true;
+                }
+                else if (!analyzedFields.Contains(pos7) && pos.X < size - 1 && field[pos.X + 1, pos.Y] == Item.Zombie1)
+                {
+                    fieldsToAnalyze.Add(pos7);
+                }
+
+                if (!analyzedFields.Contains(pos8) && pos.X < size - 1 && pos.Y < size - 1 && field[pos.X + 1, pos.Y + 1] == Item.Virus1)
+                {
+                    return true;
+                }
+                else if (!analyzedFields.Contains(pos8) && pos.X < size - 1 && pos.Y < size - 1 && field[pos.X + 1, pos.Y + 1] == Item.Zombie1)
+                {
+                    fieldsToAnalyze.Add(pos8);
+                }
+                #endregion
+            }
+            return false;
         }
 
         public void setItem(Int32 x, Int32 y, Item item)
@@ -117,6 +188,9 @@ namespace VirusWar
                             g.DrawImage(img5, i * ItemSize, j * ItemSize, ItemSize, ItemSize);
                             break;
                     }
+                    
+                    if (searchForVirus(i, j))
+                        g.DrawEllipse(Pens.Green, i * ItemSize + ItemSize / 3, j * ItemSize + ItemSize / 3, ItemSize/3, ItemSize/3);
                 }
             }
 
