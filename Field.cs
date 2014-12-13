@@ -33,13 +33,6 @@ namespace VirusWar
                 for (int j = 0; j < size; j++)
                     field[i, j] = Item.Empty;
 
-            field[2, 2] = Item.Virus1;
-            field[3, 2] = Item.Virus2;
-            field[4, 2] = Item.Zombie1;
-            field[4, 3] = Item.Zombie1;
-            field[4, 4] = Item.Zombie1;
-            field[5, 5] = Item.Zombie1;
-            field[5, 2] = Item.Zombie2;
         }
 
         public Boolean isItemEmpty(Int32 x, Int32 y)

@@ -13,6 +13,7 @@ namespace VirusWar
     {
         Field field;
         Boolean control = true;
+        int bigRound = 1;
         int i = 1;
 
         public Form1()
@@ -22,6 +23,8 @@ namespace VirusWar
 
             pictureBox1.Width = Field.ItemSize * 11 + 1;
             pictureBox1.Height = Field.ItemSize * 11 + 1;
+            label3.Text = "Player 1's turn.";
+            label4.Text = "You have 5 moves";
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -38,8 +41,13 @@ namespace VirusWar
             Field.Item Virus = control ? Field.Item.Virus1 : Field.Item.Virus2;
             Field.Item Zombie = control ? Field.Item.Zombie1 : Field.Item.Zombie2;
 
-
-            if (field.searchForVirus(xVal, yVal, control))
+            if (bigRound < 3 && i == 1 && ((xVal == 0 && yVal == 0) || (xVal == (field.size - 1) && yVal == 0) || (xVal == 0 && yVal == (field.size - 1)) || (xVal == (field.size - 1) && yVal == (field.size - 1))) && field.isItemEmpty(xVal, yVal))
+            {
+                label2.Text = "";
+                field.setItem(xVal, yVal, Virus);
+                i++;
+            }
+            else if (field.searchForVirus(xVal, yVal, control))
             {
                 label2.Text = "";
                 if (field.isItemEmpty(xVal, yVal))
@@ -54,11 +62,20 @@ namespace VirusWar
 
             if(i==6)
             {
-                control = !control; 
+                control = !control;
+                bigRound++;
                 i = 1;
             }
+
+            if (control == true)
+                label3.Text = "Player 1's turn.";
+            else
+                label3.Text = "Player 2's turn.";
+            label4.Text = "You have " + (6 - i) + " moves";
+
             pictureBox1.Refresh();
             
         }
+
     }
 }
