@@ -17,11 +17,12 @@ namespace VirusWar
         protected Bitmap img4 = new Bitmap(@"..\..\images\img4.png");
         protected Bitmap img5 = new Bitmap(@"..\..\images\img5.png");
 
-        protected Int32 size;
+        public Int32 size;
 
         public enum Item { Empty, Virus1, Virus2, Zombie1, Zombie2 };
         protected Item[,] field;
         public const Int32 ItemSize = 32;
+
 
         public Field(Int32 size)
         {
@@ -46,9 +47,10 @@ namespace VirusWar
             return field[x,y]==Item.Empty;
         }
 
-        public Boolean isThereItem(Int32 x, Int32 y)
+        public Boolean isThereItem(Int32 x, Int32 y, Boolean player1)
         {
-            return field[x, y] == Item.Virus2;
+            Item Virus2 = player1 ? Item.Virus2 : Item.Virus1;
+            return field[x, y] == Virus2;
         }
 
         public Boolean searchForVirus(Int32 x, Int32 y, Boolean player1)
@@ -162,7 +164,7 @@ namespace VirusWar
             field[x, y] = item;
         }
 
-        public void Paint(Graphics g)
+        public void Paint(Graphics g, Boolean player)
         {
             for (int i = 0; i < size; i++)
             {
@@ -191,8 +193,8 @@ namespace VirusWar
                             break;
                     }
                     
-                    if (searchForVirus(i, j, true))
-                        g.DrawEllipse(Pens.Green, i * ItemSize + ItemSize / 3, j * ItemSize + ItemSize / 3, ItemSize/3, ItemSize/3);
+                    if (searchForVirus(i, j, player))
+                        g.DrawEllipse(player ? Pens.Blue : Pens.Red, i * ItemSize + ItemSize / 3, j * ItemSize + ItemSize / 3, ItemSize/3, ItemSize/3);
                 }
             }
 
