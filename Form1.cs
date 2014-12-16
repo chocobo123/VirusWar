@@ -36,10 +36,35 @@ namespace VirusWar
         {
             int xVal = e.X / Field.ItemSize;
             int yVal = e.Y / Field.ItemSize;
+            Boolean gameOver = true;
             label1.Text = (xVal+1) + " x " + (yVal+1);
+          
             
             Field.Item Virus = control ? Field.Item.Virus1 : Field.Item.Virus2;
             Field.Item Zombie = control ? Field.Item.Zombie1 : Field.Item.Zombie2;
+
+            if (bigRound > 2)
+            {
+                for (int j = 0; j < field.size; j++)
+                {
+                    for (int k = 0; k < field.size; k++)
+                    {
+                        if (field.searchForVirus(j, k, control) == true)
+                        {
+                            gameOver = false;
+                        }
+                    }
+                }
+
+                if (gameOver == true)
+                {
+                    if (control == true)
+                        label5.Text = "Player 2 win!";
+                    else
+                        label5.Text = "Player 1 win!";
+                }
+            }
+
 
             if (bigRound < 3 && i == 1 && ((xVal == 0 && yVal == 0) || (xVal == (field.size - 1) && yVal == 0) || (xVal == 0 && yVal == (field.size - 1)) || (xVal == (field.size - 1) && yVal == (field.size - 1))) && field.isItemEmpty(xVal, yVal))
             {
@@ -58,9 +83,11 @@ namespace VirusWar
             }
             else
                 label2.Text = "This move does not go!";
-            
 
-            if(i==6)
+
+
+
+            if (i == 6)
             {
                 control = !control;
                 bigRound++;
@@ -73,9 +100,8 @@ namespace VirusWar
                 label3.Text = "Player 2's turn.";
             label4.Text = "You have " + (6 - i) + " moves";
 
-            pictureBox1.Refresh();
             
+            pictureBox1.Refresh();
         }
-
     }
 }
