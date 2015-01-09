@@ -56,6 +56,8 @@ namespace VirusWar
                     //count possible moves
                     if (searchForVirus(i, j, player1) == true)
                         fitness++;
+                    if (field[i, j] == Item.Zombie2)
+                        fitness += 10;
                 }
             }
             return fitness;

@@ -48,7 +48,7 @@ namespace VirusWar
             //Player can not click
             if (pcTurn)
                 return;
-            
+
             if (control == false && bigRound > 2)
             {
                 field.searchForVirus(xVal, yVal, control);
@@ -56,6 +56,7 @@ namespace VirusWar
 
             if (bigRound < 3 && i == 1 && ((xVal == 0 && yVal == 0) || (xVal == (field.size - 1) && yVal == 0) || (xVal == 0 && yVal == (field.size - 1)) || (xVal == (field.size - 1) && yVal == (field.size - 1))) && field.isItemEmpty(xVal, yVal))
             {
+                // set first virus
                 label2.Text = "";
                 field.setItem(xVal, yVal, Virus);
                 i++;
@@ -107,7 +108,11 @@ namespace VirusWar
                         label5.Text = "Player 1 wins!";
                     else
                         label5.Text = "Player 2 wins!";
+ 
+                    pictureBox1.Refresh();
+                    return;
                 }
+
             }
 
             pictureBox1.Refresh();
@@ -212,16 +217,21 @@ namespace VirusWar
 
             Field fieldCopy = field;
             field.fitnessfunction(false);
-            for (int i2 = 0; i2 < field.size; i2++)
+            for (int j = 0; j < field.size; j++)
             {
-                for (int j = 0; j < field.size; j++)
+                for (int k = 0; k < field.size; k++)
                 {
 
-                    if (field.searchForVirus(i2, j, !control) == true)
+                    if (field.searchForVirus(j, k, !control) == true)
                     {
 
                         Field newField = new Field(field);
-                        newField.setItem(i2, j, Field.Item.Virus2);
+                        
+                        if (newField.isItemEmpty(j, k))
+                            newField.setItem(j, k, Field.Item.Virus2);
+                        else
+                            newField.setItem(j, k, Field.Item.Zombie2);
+                    
                         possibleMoves.Add(newField);
                     }
                 }
@@ -242,7 +252,6 @@ namespace VirusWar
 
             if (i == 6)
             {
-                //control = !control;
                 bigRound++;
                 pcTurn = false;
                 i = 1;
