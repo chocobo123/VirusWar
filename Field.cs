@@ -24,6 +24,17 @@ namespace VirusWar
         public const Int32 ItemSize = 32;
 
 
+        public Field(Field previousField)
+        {
+            size = previousField.size;
+            field = new Item[size, size];
+
+            for (int i = 0; i < size; i++)
+                for (int j = 0; j < size; j++)
+                    field[i, j] = previousField.field[i, j];
+        }
+
+
         public Field(Int32 size)
         {
             this.size = size;
@@ -32,6 +43,22 @@ namespace VirusWar
             for (int i = 0; i < size; i++)
                 for (int j = 0; j < size; j++)
                     field[i, j] = Item.Empty;
+
+        }
+
+        public Int32 fitnessfunction(Boolean player1)
+        {
+            Int32 fitness = 0;
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    //count possible moves
+                    if (searchForVirus(i, j, player1) == true)
+                        fitness++;
+                }
+            }
+            return fitness;
 
         }
 
@@ -185,7 +212,7 @@ namespace VirusWar
                             g.DrawImage(img5, i * ItemSize, j * ItemSize, ItemSize, ItemSize);
                             break;
                     }
-                    
+
                     if (searchForVirus(i, j, player))
                         g.DrawEllipse(player ? Pens.Blue : Pens.Red, i * ItemSize + ItemSize / 3, j * ItemSize + ItemSize / 3, ItemSize/3, ItemSize/3);
                 }

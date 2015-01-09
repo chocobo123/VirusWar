@@ -15,6 +15,7 @@ namespace VirusWar
         Boolean control = true;
         int bigRound = 1;
         int i = 1;
+        public Boolean pcTurn = false;
 
         public Form1()
         {
@@ -23,8 +24,10 @@ namespace VirusWar
 
             pictureBox1.Width = Field.ItemSize * 11 + 1;
             pictureBox1.Height = Field.ItemSize * 11 + 1;
+            label2.Text = "";
             label3.Text = "Player 1's turn.";
             label4.Text = "You have 5 moves";
+            label5.Text = "";
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -41,6 +44,15 @@ namespace VirusWar
             
             Field.Item Virus = control ? Field.Item.Virus1 : Field.Item.Virus2;
             Field.Item Zombie = control ? Field.Item.Zombie1 : Field.Item.Zombie2;
+
+            //Player can not click
+            if (pcTurn)
+                return;
+            
+            if (control == false && bigRound > 2)
+            {
+                field.searchForVirus(xVal, yVal, control);
+            }
 
             if (bigRound < 3 && i == 1 && ((xVal == 0 && yVal == 0) || (xVal == (field.size - 1) && yVal == 0) || (xVal == 0 && yVal == (field.size - 1)) || (xVal == (field.size - 1) && yVal == (field.size - 1))) && field.isItemEmpty(xVal, yVal))
             {
@@ -59,11 +71,14 @@ namespace VirusWar
             }
             else
                 label2.Text = "You cannot place your virus there!";
+            
+            label6.Text = "Fitness Spieler: " + field.fitnessfunction(true);
 
             if (i == 6)
             {
-                control = !control;
+                //control = !control;
                 bigRound++;
+                pcTurn = true;
                 i = 1;
             }
 
@@ -96,6 +111,147 @@ namespace VirusWar
             }
 
             pictureBox1.Refresh();
+            if (pcTurn == true)
+            {
+                pictureBox1_ComputerClick();
+            }
+
         }
+
+
+        private void pictureBox1_ComputerClick()
+        {
+            int xVal;
+            int yVal;
+            List<Field> possibleMoves = new List<Field>();
+            
+
+            #region "set first virus"
+            if (i==1 && bigRound < 3)
+            {
+                Random Rnd = new Random();
+                int pseuNum = Rnd.Next(4);
+
+                
+                
+                if (pseuNum == 1)
+                {
+                    xVal = 0;
+                    yVal = 0;
+
+                    if (field.isItemEmpty(xVal, yVal))
+                    {
+                        field.setItem(xVal, yVal, Field.Item.Virus2);
+                        i++;
+                    }
+                    else
+                    {
+                        xVal = field.size - 1; // opposite field
+                        xVal = field.size - 1;
+                        field.setItem(xVal, yVal, Field.Item.Virus2);
+                        i++;
+                    }
+
+                }
+                else if (pseuNum == 2)
+                {
+                    xVal = 0;
+                    yVal = field.size - 1;
+
+                    if (field.isItemEmpty(xVal, yVal))
+                    {
+                        field.setItem(xVal, yVal, Field.Item.Virus2);
+                        i++;
+                    }
+                    else
+                    {
+                        xVal = field.size - 1;  // opposite field
+                        xVal = 0;
+                        field.setItem(xVal, yVal, Field.Item.Virus2);
+                        i++;
+                    }
+                }
+                else if (pseuNum == 3)
+                {
+                    xVal = field.size - 1;
+                    yVal = 0;
+
+                    if (field.isItemEmpty(xVal, yVal))
+                    {
+                        field.setItem(xVal, yVal, Field.Item.Virus2);
+                        i++;
+                    }
+                    else
+                    {
+                        xVal = 0;   // opposite field
+                        xVal = field.size - 1;
+                        field.setItem(xVal, yVal, Field.Item.Virus2);
+                        i++;
+                    }
+                }
+                else
+                {
+                    xVal = field.size - 1;
+                    yVal = field.size - 1;
+
+                    if (field.isItemEmpty(xVal, yVal))
+                    {
+                        field.setItem(xVal, yVal, Field.Item.Virus2);
+                        i++;
+                    }
+                    else
+                    {
+                        xVal = 0;   // opposite field
+                        xVal = 0;
+                        field.setItem(xVal, yVal, Field.Item.Virus2);
+                        i++;
+                    }
+                }
+            }
+            #endregion
+
+            Field fieldCopy = field;
+            field.fitnessfunction(false);
+            for (int i2 = 0; i2 < field.size; i2++)
+            {
+                for (int j = 0; j < field.size; j++)
+                {
+
+                    if (field.searchForVirus(i2, j, !control) == true)
+                    {
+
+                        Field newField = new Field(field);
+                        newField.setItem(i2, j, Field.Item.Virus2);
+                        possibleMoves.Add(newField);
+                    }
+                }
+            }
+
+            int maxFitness = -1;
+            foreach (Field f in possibleMoves)
+            {
+                if (f.fitnessfunction(false) > maxFitness)
+                {
+                    maxFitness = f.fitnessfunction(false);
+                    field = f;
+                }
+            }
+            i++;
+
+            pictureBox1.Refresh();
+
+            if (i == 6)
+            {
+                //control = !control;
+                bigRound++;
+                pcTurn = false;
+                i = 1;
+            }
+            else
+            {
+                pictureBox1_ComputerClick();
+            }
+        }
+
     }
 }

@@ -37,8 +37,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -64,10 +65,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(161, 374);
+            this.label2.Location = new System.Drawing.Point(161, 370);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 13);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 4;
+            this.label2.Text = "label2";
             // 
             // label3
             // 
@@ -124,15 +126,6 @@
             this.panel1.Size = new System.Drawing.Size(104, 110);
             this.panel1.TabIndex = 10;
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(0, 39);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(104, 27);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Oneplayer mode";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(0, 75);
@@ -142,11 +135,30 @@
             this.button4.Text = "Twoplayer mode";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(0, 39);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(104, 27);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "Oneplayer mode";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(45, 291);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "label6";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(559, 392);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label5);
@@ -178,6 +190,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label6;
 
     }
 }
