@@ -21,6 +21,7 @@ namespace VirusWar
         public Form1()
         {
             InitializeComponent();
+            pictureBox1.Visible = false;
             field = new Field(11);
 
             pictureBox1.Width = Field.ItemSize * 11 + 1;
@@ -360,6 +361,7 @@ namespace VirusWar
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
             startGame = true;
+            pictureBox1.Visible = true;
             if(singleplayerModeToolStripMenuItem.Checked && player2ToolStripMenuItem.Checked)
                 pictureBox1_ComputerClick();
             if (twoplayerModeToolStripMenuItem.Checked && player2ToolStripMenuItem.Checked)
@@ -377,6 +379,7 @@ namespace VirusWar
             bigRound = 1;
             i = 1;
             pcTurn = false;
+            pictureBox1.Visible = false;
             pictureBox1.Refresh();
         }   
 
