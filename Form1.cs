@@ -16,6 +16,7 @@ namespace VirusWar
         int bigRound = 1;
         int i = 1;
         public Boolean pcTurn = false;
+        Boolean startGame = false;
 
         public Form1()
         {
@@ -44,79 +45,86 @@ namespace VirusWar
             
             Field.Item Virus = control ? Field.Item.Virus1 : Field.Item.Virus2;
             Field.Item Zombie = control ? Field.Item.Zombie1 : Field.Item.Zombie2;
+            
+            if(startGame == false)
+                label2.Text = "click Game - start";
 
             //Player can not click
-            if (pcTurn)
+            if (singleplayerModeToolStripMenuItem.Checked && pcTurn)
                 return;
-
-            if (control == false && bigRound > 2)
+            if(startGame == true)
             {
-                field.searchForVirus(xVal, yVal, control);
-            }
-
-            if (bigRound < 3 && i == 1 && ((xVal == 0 && yVal == 0) || (xVal == (field.size - 1) && yVal == 0) || (xVal == 0 && yVal == (field.size - 1)) || (xVal == (field.size - 1) && yVal == (field.size - 1))) && field.isItemEmpty(xVal, yVal))
-            {
-                // set first virus
-                label2.Text = "";
-                field.setItem(xVal, yVal, Virus);
-                i++;
-            }
-            else if (field.searchForVirus(xVal, yVal, control))
-            {
-                label2.Text = "";
-                if (field.isItemEmpty(xVal, yVal))
-                    field.setItem(xVal, yVal, Virus);
-                else if (field.isThereItem(xVal, yVal, control))
-                    field.setItem(xVal, yVal, Zombie);
-                i++;
-            }
-            else
-                label2.Text = "You cannot place your virus there!";
-            
-            label6.Text = "Fitness Spieler: " + field.fitnessfunction(true);
-
-            if (i == 6)
-            {
-                //control = !control;
-                bigRound++;
-                pcTurn = true;
-                i = 1;
-            }
-
-            if (control == true)
-                label3.Text = "Player 1's turn.";
-            else
-                label3.Text = "Player 2's turn.";
-            label4.Text = "You have " + (6 - i) + " moves";
-
-            if (bigRound > 2)
-            {
-                for (int j = 0; j < field.size; j++)
+                if (bigRound > 2)
                 {
-                    for (int k = 0; k < field.size; k++)
+                    field.searchForVirus(xVal, yVal, control);
+                }
+
+                if (bigRound < 3 && i == 1 && ((xVal == 0 && yVal == 0) || (xVal == (field.size - 1) && yVal == 0) || (xVal == 0 && yVal == (field.size - 1)) || (xVal == (field.size - 1) && yVal == (field.size - 1))) && field.isItemEmpty(xVal, yVal))
+                {
+                    // set first virus
+                    label2.Text = "";
+                    field.setItem(xVal, yVal, Virus);
+                    i++;
+                }
+                else if (field.searchForVirus(xVal, yVal, control))
+                {
+                    label2.Text = "";
+                    if (field.isItemEmpty(xVal, yVal))
+                        field.setItem(xVal, yVal, Virus);
+                    else if (field.isThereItem(xVal, yVal, control))
+                        field.setItem(xVal, yVal, Zombie);
+                    i++;
+                }
+                else
+                    label2.Text = "You cannot place your virus there!";
+            
+                label6.Text = "Fitness Spieler: " + field.fitnessfunction(true);
+
+                if (i == 6)
+                {
+                    if(twoplayerModeToolStripMenuItem.Checked)
+                        control = !control;
+                    if(singleplayerModeToolStripMenuItem.Checked)
+                        pcTurn = true;
+
+                    bigRound++;
+                    i = 1;
+                }
+
+                if (control == true)
+                    label3.Text = "Player 1's turn.";
+                else
+                    label3.Text = "Player 2's turn.";
+                label4.Text = "You have " + (6 - i) + " moves";
+
+                if (bigRound > 2)
+                {
+                    for (int j = 0; j < field.size; j++)
                     {
-                        if (field.searchForVirus(j, k, !control) == true)
+                        for (int k = 0; k < field.size; k++)
                         {
-                            gameOver = false;
+                            if (field.searchForVirus(j, k, !control) == true)
+                            {
+                                gameOver = false;
+                            }
                         }
                     }
-                }
 
-                if (gameOver == true)
-                {
-                    if (control == true)
-                        label5.Text = "Player 1 wins!";
-                    else
-                        label5.Text = "Player 2 wins!";
- 
-                    pictureBox1.Refresh();
-                    return;
-                }
+                    if (gameOver == true)
+                    {
+                        if (control == true)
+                            label5.Text = "Player 1 wins!";
+                        else
+                            label5.Text = "Player 2 wins!";
 
+                        pictureBox1.Refresh();
+                        return;
+                    }
+                }
             }
 
             pictureBox1.Refresh();
-            if (pcTurn == true)
+            if (pcTurn == true && singleplayerModeToolStripMenuItem.Checked)
             {
                 pictureBox1_ComputerClick();
             }
@@ -237,7 +245,7 @@ namespace VirusWar
                 }
             }
 
-            int maxFitness = -1;
+            int maxFitness = 0;
             foreach (Field f in possibleMoves)
             {
                 if (f.fitnessfunction(false) > maxFitness)
@@ -258,9 +266,114 @@ namespace VirusWar
             }
             else
             {
-                pictureBox1_ComputerClick();
+                if(singleplayerModeToolStripMenuItem.Checked)
+                    pictureBox1_ComputerClick();
             }
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void singleplayerModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            singleplayerModeToolStripMenuItem.Checked = true;
+            twoplayerModeToolStripMenuItem.Checked = false;
+        }
+
+        private void twoplayerModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            singleplayerModeToolStripMenuItem.Checked = false;
+            twoplayerModeToolStripMenuItem.Checked = true;   
+        }
+
+        private void player1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            player1ToolStripMenuItem.Checked = true;
+            player2ToolStripMenuItem.Checked = false;
+            
+        }
+
+        private void player2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            player1ToolStripMenuItem.Checked = false;
+            player2ToolStripMenuItem.Checked = true;
+        }
+
+        private void searchDepth1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            searchDepth1ToolStripMenuItem.Checked = true;
+            searchDepth2ToolStripMenuItem.Checked = false;
+            searchDepth3ToolStripMenuItem.Checked = false;
+            searchDepth4ToolStripMenuItem.Checked = false;
+            searchDepth5ToolStripMenuItem.Checked = false;  
+        }
+
+        private void searchDepth2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            searchDepth1ToolStripMenuItem.Checked = false;
+            searchDepth2ToolStripMenuItem.Checked = true;
+            searchDepth3ToolStripMenuItem.Checked = false;
+            searchDepth4ToolStripMenuItem.Checked = false;
+            searchDepth5ToolStripMenuItem.Checked = false;
+        }
+
+        private void searchDepth3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            searchDepth1ToolStripMenuItem.Checked = false;
+            searchDepth2ToolStripMenuItem.Checked = false;
+            searchDepth3ToolStripMenuItem.Checked = true;
+            searchDepth4ToolStripMenuItem.Checked = false;
+            searchDepth5ToolStripMenuItem.Checked = false;
+        }
+
+        private void searchDepth4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            searchDepth1ToolStripMenuItem.Checked = false;
+            searchDepth2ToolStripMenuItem.Checked = false;
+            searchDepth3ToolStripMenuItem.Checked = false;
+            searchDepth4ToolStripMenuItem.Checked = true;
+            searchDepth5ToolStripMenuItem.Checked = false;
+        }
+
+        private void searchDepth5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            searchDepth1ToolStripMenuItem.Checked = false;
+            searchDepth2ToolStripMenuItem.Checked = false;
+            searchDepth3ToolStripMenuItem.Checked = false;
+            searchDepth4ToolStripMenuItem.Checked = false;
+            searchDepth5ToolStripMenuItem.Checked = true;
+        }
+
+        private void instructionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("...", "VirusWar - Instructions", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void abotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("...", "VirusWar - About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void startToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            startGame = true;
+            if(singleplayerModeToolStripMenuItem.Checked && player2ToolStripMenuItem.Checked)
+                pictureBox1_ComputerClick();
+            if (twoplayerModeToolStripMenuItem.Checked && player2ToolStripMenuItem.Checked)
+                control = !control;
+
+            toolStripMenuItem1.Enabled = false;
+        }
+
+        private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            field = new Field(11);
+            startGame = false;
+            toolStripMenuItem1.Enabled = true;
+            pictureBox1.Refresh();
+        }   
 
     }
 }

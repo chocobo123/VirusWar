@@ -57,11 +57,10 @@ namespace VirusWar
                     if (searchForVirus(i, j, player1) == true)
                         fitness++;
                     if (field[i, j] == Item.Zombie2)
-                        fitness += 10;
+                        fitness+=10;
                 }
             }
             return fitness;
-
         }
 
         public Boolean isItemEmpty(Int32 x, Int32 y)
