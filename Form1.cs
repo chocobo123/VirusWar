@@ -52,6 +52,7 @@ namespace VirusWar
             //Player can not click
             if (singleplayerModeToolStripMenuItem.Checked && pcTurn)
                 return;
+
             if(startGame == true)
             {
                 if (bigRound > 2)
@@ -121,14 +122,14 @@ namespace VirusWar
                         return;
                     }
                 }
-            }
+            
 
-            pictureBox1.Refresh();
-            if (pcTurn == true && singleplayerModeToolStripMenuItem.Checked)
-            {
-                pictureBox1_ComputerClick();
+                pictureBox1.Refresh();
+                if (pcTurn == true && singleplayerModeToolStripMenuItem.Checked)
+                {
+                    pictureBox1_ComputerClick();
+                }
             }
-
         }
 
 
@@ -372,6 +373,10 @@ namespace VirusWar
             field = new Field(11);
             startGame = false;
             toolStripMenuItem1.Enabled = true;
+            control = true;
+            bigRound = 1;
+            i = 1;
+            pcTurn = false;
             pictureBox1.Refresh();
         }   
 
