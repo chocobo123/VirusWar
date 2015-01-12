@@ -30,6 +30,7 @@ namespace VirusWar
             label3.Text = "";
             label4.Text = "";
             label5.Text = "";
+            label6.Text = "";
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -82,7 +83,7 @@ namespace VirusWar
                     i = 1;
                 }
 
-                // check if one has wone
+                // check if player has wone
                 if (bigRound > 2)
                 {
                     Boolean gameOver = true;
@@ -100,9 +101,9 @@ namespace VirusWar
                     if (gameOver == true)
                     {
                         if (control == true)
-                            label5.Text = "Player 2 wins!";
+                            label6.Text = "Player 2 wins!";
                         else
-                            label5.Text = "Player 1 wins!";
+                            label6.Text = "Player 1 wins!";
 
                         label2.Text = "";
                         label3.Text = "";
@@ -220,7 +221,7 @@ namespace VirusWar
             Field fieldCopy = field;
             field.fitnessfunction(false);
 
-            Boolean gameOver = true;
+            //Boolean gameOver = true;
             for (int j = 0; j < field.size; j++)
             {
                 for (int k = 0; k < field.size; k++)
@@ -228,7 +229,7 @@ namespace VirusWar
 
                     if (field.searchForVirus(j, k, !control) == true)
                     {
-                        gameOver = false;
+                        //gameOver = false;
                         Field newField = new Field(field);
                         
                         if (newField.isItemEmpty(j, k))
@@ -269,17 +270,47 @@ namespace VirusWar
 
             label4.Text = "You have " + (6 - i) + " moves";
 
+            // check if pc has wone
+            if (bigRound > 2)
+            {
+                Boolean gameOver = true;
+                for (int j = 0; j < field.size; j++)
+                {
+                    for (int k = 0; k < field.size; k++)
+                    {
+                        if (field.searchForVirus(j, k, !control) == true)
+                        {
+                            gameOver = false;
+                        }
+                    }
+                }
+
+                if (gameOver == true)
+                {
+                    if (control == true)
+                        label6.Text = "Player 1 wins!";
+                    else
+                        label6.Text = "Player 2 wins!";
+
+                    label2.Text = "";
+                    label3.Text = "";
+
+                    pictureBox1.Refresh();
+                    return;
+                }
+            }
+            /*
             if (gameOver == true)
             {
                 if (control == true)
-                    label3.Text = "Player 1's turn.";
+                    label3.Text = "Player 2 wins!.";
                 else
-                    label3.Text = "Player 2's turn.";
+                    label3.Text = "Player 1 wins!";
 
                 label2.Text = "";
                 label3.Text = "";
                 pictureBox1.Refresh();
-            }
+            }*/
         }
         #region "click in the menu"
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -399,6 +430,7 @@ namespace VirusWar
             label1.Text = "";
             label2.Text = "";
             label5.Text = "";
+            label6.Text = "";
             pictureBox1.Refresh();
         }
         #endregion

@@ -11,11 +11,11 @@ namespace VirusWar
 {
     public class Field
     {
-        protected Bitmap img1 = new Bitmap(@"..\..\images\img1.png");
-        protected Bitmap img2 = new Bitmap(@"..\..\images\img2.png");
-        protected Bitmap img3 = new Bitmap(@"..\..\images\img3.png");
-        protected Bitmap img4 = new Bitmap(@"..\..\images\img4.png");
-        protected Bitmap img5 = new Bitmap(@"..\..\images\img5.png");
+        protected Bitmap img1 = Properties.Resources.img1;
+        protected Bitmap img2 = Properties.Resources.img2;
+        protected Bitmap img3 = Properties.Resources.img3;
+        protected Bitmap img4 = Properties.Resources.img4;
+        protected Bitmap img5 = Properties.Resources.img5;
 
         public Int32 size;
 
