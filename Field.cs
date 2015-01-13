@@ -63,6 +63,14 @@ namespace VirusWar
             return fitness;
         }
 
+        public Int32 ratingfunction(Field field, Boolean player1)
+        {
+            Int32 rating = 0; 
+            rating = fitnessfunction(player1) - fitnessfunction(!player1);
+            
+            return rating;
+        }
+
         public Boolean isItemEmpty(Int32 x, Int32 y)
         {
             return field[x,y]==Item.Empty;
