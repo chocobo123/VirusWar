@@ -290,7 +290,7 @@ namespace VirusWar
                     if (control == true)
                         label6.Text = "Player 1 wins!";
                     else
-                        label6.Text = "Player 2 wins!";
+                        label6.Text = "Computerplayer wins!";
 
                     label2.Text = "";
                     label3.Text = "";
@@ -299,18 +299,6 @@ namespace VirusWar
                     return;
                 }
             }
-            /*
-            if (gameOver == true)
-            {
-                if (control == true)
-                    label3.Text = "Player 2 wins!.";
-                else
-                    label3.Text = "Player 1 wins!";
-
-                label2.Text = "";
-                label3.Text = "";
-                pictureBox1.Refresh();
-            }*/
         }
         #region "click in the menu"
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

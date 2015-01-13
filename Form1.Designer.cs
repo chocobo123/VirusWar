@@ -285,25 +285,27 @@
             // instructionsToolStripMenuItem
             // 
             this.instructionsToolStripMenuItem.Name = "instructionsToolStripMenuItem";
-            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.instructionsToolStripMenuItem.Text = "Instructions";
             this.instructionsToolStripMenuItem.Click += new System.EventHandler(this.instructionsToolStripMenuItem_Click);
             // 
             // abotToolStripMenuItem
             // 
             this.abotToolStripMenuItem.Name = "abotToolStripMenuItem";
-            this.abotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abotToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.abotToolStripMenuItem.Text = "About";
             this.abotToolStripMenuItem.Click += new System.EventHandler(this.abotToolStripMenuItem_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(280, 214);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(200, 21);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.Size = new System.Drawing.Size(124, 42);
             this.label6.TabIndex = 13;
             this.label6.Text = "label6";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1
             // 
