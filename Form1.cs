@@ -22,10 +22,10 @@ namespace VirusWar
         {
             InitializeComponent();
             pictureBox1.Visible = false;
-            field = new Field(11);
+            field = new Field(5);
 
-            pictureBox1.Width = Field.ItemSize * 11 + 1;
-            pictureBox1.Height = Field.ItemSize * 11 + 1;
+            pictureBox1.Width = Field.ItemSize * field.size + 1;
+            pictureBox1.Height = Field.ItemSize * field.size + 1;
             label2.Text = "";
             label3.Text = "";
             label4.Text = "";
@@ -42,7 +42,7 @@ namespace VirusWar
         {
             int xVal = e.X / Field.ItemSize;
             int yVal = e.Y / Field.ItemSize;
-            label1.Text = (xVal+1) + " x " + (yVal+1);         
+            //label1.Text = (xVal+1) + " x " + (yVal+1);         
             
             Field.Item Virus = control ? Field.Item.Virus1 : Field.Item.Virus2;
             Field.Item Zombie = control ? Field.Item.Zombie1 : Field.Item.Zombie2;
@@ -73,7 +73,7 @@ namespace VirusWar
             else
                 label2.Text = "You can not place your virus there!";
 
-            if (i == 6)
+            if (i == 2)
             {
                 if(twoplayerModeToolStripMenuItem.Checked)
                     control = !control;
@@ -139,11 +139,11 @@ namespace VirusWar
             List<Field> possibleMoves = new List<Field>();
 
             #region "set first virus"
-            if (i==1 && bigRound < 3)
+            if (i == 1 && bigRound < 3)
             {
                 Random Rnd = new Random();
                 int pseuNum = Rnd.Next(4);
-                                
+
                 if (pseuNum == 1)
                 {
                     xVal = 0;
@@ -217,62 +217,63 @@ namespace VirusWar
                         i++;
                     }
                 }
-                pcMoves.Add(new Point(xVal, yVal));
+                //pcMoves.Add(new Point(xVal, yVal));
 
             }
             #endregion
-
-            Field fieldCopy = field;
-            field.fitnessfunction(false);
-
-            /*foreach(Point aPoint in pcMoves)
+            else
             {
-                if (field.searchForVirus(aPoint.X, aPoint.Y, !control) == true)
-                    {
-                        Field newField = new Field(field);
-                        
-                        if (newField.isItemEmpty(aPoint.X, aPoint.Y))
-                            newField.setItem(aPoint.X, aPoint.Y, Field.Item.Virus2);
-                        else
-                            newField.setItem(aPoint.X, aPoint.Y, Field.Item.Zombie2);
+                Field fieldCopy = field;
+                field.fitnessfunction(false);
 
-                        possibleMoves.Add(newField);
-                    }
-            }*/
-
-            for (int j = 0; j < field.size; j++)
-            {
-                for (int k = 0; k < field.size; k++)
-                { 
-
-                    if (field.searchForVirus(j, k, !control) == true)
-                    {
-                        Field newField = new Field(field);
-                        
-                        if (newField.isItemEmpty(j, k))
-                            newField.setItem(j, k, Field.Item.Virus2);
-                        else
-                            newField.setItem(j, k, Field.Item.Zombie2);
-
-                        possibleMoves.Add(newField);
-                    }
-                }
-            }
-
-
-            int maxFitness = 0;
-            foreach (Field f in possibleMoves)
-            {
-                if (f.fitnessfunction(false) > maxFitness)
+                /*foreach(Point aPoint in pcMoves)
                 {
-                    maxFitness = f.fitnessfunction(false);
-                    field = f;
-                }
-            }
-            
-            //pcMoves.Add(new Point(aPoint.X, aPoint.Y));
-            i++;
+                    if (field.searchForVirus(aPoint.X, aPoint.Y, !control) == true)
+                        {
+                            Field newField = new Field(field);
+                        
+                            if (newField.isItemEmpty(aPoint.X, aPoint.Y))
+                                newField.setItem(aPoint.X, aPoint.Y, Field.Item.Virus2);
+                            else
+                                newField.setItem(aPoint.X, aPoint.Y, Field.Item.Zombie2);
 
+                            possibleMoves.Add(newField);
+                        }
+                }*/
+
+                for (int j = 0; j < field.size; j++)
+                {
+                    for (int k = 0; k < field.size; k++)
+                    {
+
+                        if (field.searchForVirus(j, k, !control) == true)
+                        {
+                            Field newField = new Field(field);
+
+                            if (newField.isItemEmpty(j, k))
+                                newField.setItem(j, k, Field.Item.Virus2);
+                            else
+                                newField.setItem(j, k, Field.Item.Zombie2);
+
+                            possibleMoves.Add(newField);
+                        }
+                    }
+                }
+
+
+                int maxFitness = 0;
+                foreach (Field f in possibleMoves)
+                {
+                    if (f.fitnessfunction(false) > maxFitness)
+                    {
+                        maxFitness = f.fitnessfunction(false);
+                        field = f;
+                    }
+                }
+
+                //pcMoves.Add(new Point(aPoint.X, aPoint.Y));
+                i++;
+            }
             pictureBox1.Refresh(); 
 
             // check if pc has wone
@@ -307,7 +308,7 @@ namespace VirusWar
                 }
             }
 
-            if (i == 6)
+            if (i == 2)
             {
                 bigRound++;
                 pcTurn = false;
