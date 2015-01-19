@@ -63,7 +63,7 @@ namespace VirusWar
             return fitness;
         }
 
-        public Int32 ratingfunction(Field field, Boolean player1)
+        public Int32 ratingfunction(Boolean player1)
         {
             Int32 rating = 0; 
             rating = fitnessfunction(player1) - fitnessfunction(!player1);

@@ -5,13 +5,22 @@ using System.Text;
 
 namespace VirusWar
 {
-    class TreeNode
+    public class TreeNode
     {
-        public TreeNode parents;
-        public List<TreeNode> children;
+        public TreeNode parent = null;
+        public List<TreeNode> children = new List<TreeNode>();
+        public Field field;
+        public Boolean player;
 
         public void TreeNode(Field currentField, Boolean player)
         {
+            this.field = new Field(currentField);
+            this.player = player;
+        }
+
+        public void Tree(Int32 depth)
+        {
+
             for (int i = 1; i < currentField.size; i++)
             {
                 for (int j = 1; j < currentField.size; j++)
@@ -20,13 +29,14 @@ namespace VirusWar
                     children = new List<TreeNode>();
                 }
             }
-        }
-
-        public void Tree(Int32 depth, Field currentField, Boolean player)
-        {
             for(int i=0; i<depth; i++)
             {
-                TreeNode(currentField, player);
+                if(i % 2 == 0)
+                    TreeNode(currentField, !player);
+                else
+                    TreeNode(currentField, player);
+                if()
+                    currentField.ratingfunction(player);
             }
         }
     }
