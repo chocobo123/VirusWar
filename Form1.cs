@@ -134,8 +134,6 @@ namespace VirusWar
         private void pictureBox1_ComputerClick()
         {
             
-            
-
             int xVal;
             int yVal;
             List<Point> pcMoves = new List<Point>();
@@ -246,9 +244,9 @@ namespace VirusWar
                 {
                    
                     if (control == true)
-                        label6.Text = "Player 2 wins!";
-                    else
                         label6.Text = "Player 1 wins!";
+                    else
+                        label6.Text = "Player 2 wins!";
 
                     label2.Text = "";
                     label3.Text = "";
@@ -264,6 +262,7 @@ namespace VirusWar
             }
             pictureBox1.Refresh(); 
 
+            
             // check if pc has wone
             if (bigRound > 2)
             {

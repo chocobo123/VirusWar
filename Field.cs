@@ -48,6 +48,7 @@ namespace VirusWar
 
         public Int32 fitnessfunction(Boolean player1)
         {
+            Field.Item Zombie = player1 ? Field.Item.Zombie2 : Field.Item.Zombie1;
             Int32 fitness = 0;
             for (int i = 0; i < size; i++)
             {
@@ -56,8 +57,8 @@ namespace VirusWar
                     //count possible moves
                     if (searchForVirus(i, j, player1) == true)
                         fitness++;
-                    if (field[i, j] == Item.Zombie2)
-                        fitness+=10;
+                    if (field[i, j] == Zombie)
+                        fitness+=5;
                 }
             }
             return fitness;
