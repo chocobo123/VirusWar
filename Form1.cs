@@ -133,6 +133,11 @@ namespace VirusWar
 
         private void pictureBox1_ComputerClick()
         {
+            TreeNode tree = new TreeNode(field, control);
+            tree.Tree(4);
+
+
+
             int xVal;
             int yVal;
             List<Point> pcMoves = new List<Point>();
