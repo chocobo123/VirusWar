@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace VirusWar
 {
@@ -14,6 +15,7 @@ namespace VirusWar
         public Int32 min = Int32.MinValue;
         public Int32 max = Int32.MaxValue;
         public Int32 rating;
+        public Point pos = Point.Empty;
 
         public TreeNode(Field currentField, Boolean player) //without parent, first node
         {
@@ -30,21 +32,20 @@ namespace VirusWar
 
         public void Tree(Int32 depth)
         {
-            Field.Item Virus = player ? Field.Item.Virus1 : Field.Item.Virus2;
-            Field.Item Zombie = player ? Field.Item.Zombie1 : Field.Item.Zombie2;
+            Field.Item Virus = player ? Field.Item.Virus2 : Field.Item.Virus1;
+            Field.Item Zombie = player ? Field.Item.Zombie2 : Field.Item.Zombie1;
 
-            if (depth < 1)
+            if (depth < 2)
             {
-                rating = field.ratingfunction(player);
-                
+                rating = field.ratingfunction(!player);
                 return;
             }
 
-            for (int i = 1; i < field.size; i++)
+            for (int i = 0; i < field.size; i++)
             {
-                for (int j = 1; j < field.size; j++)
+                for (int j = 0; j < field.size; j++)
                 {
-                    if (field.searchForVirus(i, j, player) == true)
+                    if (field.searchForVirus(i, j, !player) == true)
                     {
                         Field newField = new Field(field);
 
@@ -53,14 +54,17 @@ namespace VirusWar
                         else
                             newField.setItem(i, j, Zombie);
 
+                        // create a node
                         TreeNode node = new TreeNode(newField, player, this);
+                        node.pos = new Point(i, j);
                         
+                        // determine the min/max of the nodes
                         foreach(TreeNode n in node.parent.children)
                         {
                             if (depth % 2 == 0)
                             {
                                 if (n.rating > node.min)
-                                    node.min = n.rating;
+                                    node.min = n.rating;  
                             }
                             else
                             {
@@ -68,18 +72,28 @@ namespace VirusWar
                                     node.max = n.rating;
                             }
                         }
+
+                        // alpha-cut
+                        if (node.min > node.rating)
+                            return;
+                        // beta-cut
+                        if (node.max < node.rating)
+                            return;
                         
                         node.Tree(depth - 1);
-
+                        
                         children.Add(node);
                     }
                            
                 }
             }
+
+            // determine the minimum/maximum of the children
             if (depth % 2 == 0)
                 minimum();
             else
                 maximum();
+
             
             
         }
@@ -103,5 +117,6 @@ namespace VirusWar
                     rating = n.rating;
             }
         }
+
     }
 }

@@ -133,10 +133,8 @@ namespace VirusWar
 
         private void pictureBox1_ComputerClick()
         {
-            TreeNode tree = new TreeNode(field, control);
-            tree.Tree(4);
-
-
+            
+            
 
             int xVal;
             int yVal;
@@ -228,55 +226,40 @@ namespace VirusWar
             #endregion
             else
             {
-                Field fieldCopy = field;
-                field.fitnessfunction(false);
-
-                /*foreach(Point aPoint in pcMoves)
+                TreeNode tree = new TreeNode(field, control);
+                tree.Tree(4);
+                if (tree.children.Count > 0)
                 {
-                    if (field.searchForVirus(aPoint.X, aPoint.Y, !control) == true)
-                        {
-                            Field newField = new Field(field);
-                        
-                            if (newField.isItemEmpty(aPoint.X, aPoint.Y))
-                                newField.setItem(aPoint.X, aPoint.Y, Field.Item.Virus2);
-                            else
-                                newField.setItem(aPoint.X, aPoint.Y, Field.Item.Zombie2);
-
-                            possibleMoves.Add(newField);
-                        }
-                }*/
-
-                for (int j = 0; j < field.size; j++)
-                {
-                    for (int k = 0; k < field.size; k++)
+                    foreach (TreeNode n in tree.children)
                     {
-
-                        if (field.searchForVirus(j, k, !control) == true)
+                        if (n.rating == tree.rating)
                         {
-                            Field newField = new Field(field);
-
-                            if (newField.isItemEmpty(j, k))
-                                newField.setItem(j, k, Field.Item.Virus2);
+                            if (field.isItemEmpty(n.pos.X, n.pos.Y))
+                                field.setItem(n.pos.X, n.pos.Y, Field.Item.Virus2);
                             else
-                                newField.setItem(j, k, Field.Item.Zombie2);
-
-                            possibleMoves.Add(newField);
+                                field.setItem(n.pos.X, n.pos.Y, Field.Item.Zombie2);
+                            break;
                         }
                     }
                 }
-
-
-                int maxFitness = 0;
-                foreach (Field f in possibleMoves)
+                else
                 {
-                    if (f.fitnessfunction(false) > maxFitness)
-                    {
-                        maxFitness = f.fitnessfunction(false);
-                        field = f;
-                    }
+                   
+                    if (control == true)
+                        label6.Text = "Player 2 wins!";
+                    else
+                        label6.Text = "Player 1 wins!";
+
+                    label2.Text = "";
+                    label3.Text = "";
+                    label4.Text = "";
+                    label5.Text = "";
+
+                    pictureBox1.Refresh();
+                    return;
+                    
                 }
 
-                //pcMoves.Add(new Point(aPoint.X, aPoint.Y));
                 i++;
             }
             pictureBox1.Refresh(); 
