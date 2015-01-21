@@ -17,19 +17,21 @@ namespace VirusWar
         int i = 1;
         Boolean pcTurn = false;
         Boolean startGame = false;
-
+        Int32 maxSubMoves = 2;
+        Int32 maxDepth=3;
+        Int32 fieldSize = 5;
+        
         public Form1()
         {
             InitializeComponent();
             pictureBox1.Visible = false;
-            field = new Field(5);
+            field = new Field(fieldSize);
 
             pictureBox1.Width = Field.ItemSize * field.size + 1;
             pictureBox1.Height = Field.ItemSize * field.size + 1;
             label2.Text = "";
             label3.Text = "";
             label4.Text = "";
-            label5.Text = "";
             label6.Text = "";
         }
 
@@ -41,8 +43,7 @@ namespace VirusWar
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             int xVal = e.X / Field.ItemSize;
-            int yVal = e.Y / Field.ItemSize;
-            //label1.Text = (xVal+1) + " x " + (yVal+1);         
+            int yVal = e.Y / Field.ItemSize;        
             
             Field.Item Virus = control ? Field.Item.Virus1 : Field.Item.Virus2;
             Field.Item Zombie = control ? Field.Item.Zombie1 : Field.Item.Zombie2;
@@ -62,18 +63,20 @@ namespace VirusWar
                 i++;
             }
             else if (field.searchForVirus(xVal, yVal, control))
-            {
+            {   
                 label2.Text = "";
                 if (field.isItemEmpty(xVal, yVal))
+                    //set virus
                     field.setItem(xVal, yVal, Virus);
                 else if (field.isThereItem(xVal, yVal, control))
+                    // set zombie
                     field.setItem(xVal, yVal, Zombie);
                 i++;
             }
             else
                 label2.Text = "You can not place your virus there!";
 
-            if (i == 2)
+            if (i == (maxSubMoves+1))
             {
                 if(twoplayerModeToolStripMenuItem.Checked)
                     control = !control;
@@ -109,7 +112,6 @@ namespace VirusWar
                     label2.Text = "";
                     label3.Text = "";
                     label4.Text = "";
-                    label5.Text = "";
 
                     pictureBox1.Refresh();
                     return;
@@ -121,7 +123,7 @@ namespace VirusWar
             else
                 label3.Text = "Player 2's turn.";
 
-            label4.Text = "You have " + (6 - i) + " moves";
+            label4.Text = "You have " + (maxSubMoves + 1 - i) + " moves.";
 
             pictureBox1.Refresh();
             if (pcTurn == true && singleplayerModeToolStripMenuItem.Checked)
@@ -133,11 +135,21 @@ namespace VirusWar
 
         private void pictureBox1_ComputerClick()
         {
-            
             int xVal;
             int yVal;
             List<Point> pcMoves = new List<Point>();
             List<Field> possibleMoves = new List<Field>();
+
+            if (searchDepth1ToolStripMenuItem.Checked)
+                maxDepth = 1;
+            else if (searchDepth2ToolStripMenuItem.Checked)
+                maxDepth = 2;
+            else if (searchDepth3ToolStripMenuItem.Checked)
+                maxDepth = 3;
+            else if (searchDepth4ToolStripMenuItem.Checked)
+                maxDepth = 4;
+            else
+                maxDepth = 5;
 
             #region "set first virus"
             if (i == 1 && bigRound < 3)
@@ -155,7 +167,6 @@ namespace VirusWar
                         xVal = field.size - 1; // opposite field
                         xVal = field.size - 1;
                     }
-
                 }
                 else if (pseuNum == 2)
                 {
@@ -177,7 +188,6 @@ namespace VirusWar
                     {
                         xVal = 0;   // opposite field
                         xVal = field.size - 1;
-
                     }
                 }
                 else
@@ -200,7 +210,7 @@ namespace VirusWar
             else
             {
                 TreeNode tree = new TreeNode(field, control);
-                tree.Tree(1,4);
+                tree.Tree(1, maxDepth, 1, maxSubMoves);
                 if (tree.children.Count > 0)
                 {
                     foreach (TreeNode n in tree.children)
@@ -217,7 +227,6 @@ namespace VirusWar
                 }
                 else
                 {
-                   
                     if (control == true)
                         label6.Text = "Player 1 wins!";
                     else
@@ -226,17 +235,14 @@ namespace VirusWar
                     label2.Text = "";
                     label3.Text = "";
                     label4.Text = "";
-                    label5.Text = "";
 
                     pictureBox1.Refresh();
-                    return;
-                    
+                    return; 
                 }
 
                 i++;
             }
             pictureBox1.Refresh(); 
-
             
             // check if pc has wone
             if (bigRound > 2)
@@ -263,14 +269,13 @@ namespace VirusWar
                     label2.Text = "";
                     label3.Text = "";
                     label4.Text = "";
-                    label5.Text = "";
 
                     pictureBox1.Refresh();
                     return;
                 }
             }
 
-            if (i == 2)
+            if (i == maxSubMoves + 1)
             {
                 bigRound++;
                 pcTurn = false;
@@ -375,6 +380,7 @@ namespace VirusWar
         {
             startGame = true;
             pictureBox1.Visible = true;
+
             if(singleplayerModeToolStripMenuItem.Checked && player2ToolStripMenuItem.Checked)
                 pictureBox1_ComputerClick();
             if (twoplayerModeToolStripMenuItem.Checked && player2ToolStripMenuItem.Checked)
@@ -384,7 +390,7 @@ namespace VirusWar
                 label3.Text = "Player 1's turn.";
             else
                 label3.Text = "Player 2's turn.";
-            label4.Text = "You have " + (6 - i) + " moves";
+            label4.Text = "You have " + (maxSubMoves - i + 1) + " moves.";
 
             toolStripMenuItem1.Enabled = false;
         }
@@ -392,7 +398,7 @@ namespace VirusWar
         // reset
         private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            field = new Field(5);
+            field = new Field(fieldSize);
             startGame = false;
             toolStripMenuItem1.Enabled = true;
             control = true;
@@ -400,9 +406,9 @@ namespace VirusWar
             i = 1;
             pcTurn = false;
             pictureBox1.Visible = false;
-            label1.Text = "";
             label2.Text = "";
-            label5.Text = "";
+            label3.Text = "";
+            label4.Text = "";
             label6.Text = "";
             pictureBox1.Refresh();
         }

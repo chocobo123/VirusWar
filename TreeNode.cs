@@ -31,7 +31,7 @@ namespace VirusWar
             this.parent = parent;
         }
 
-        public void Tree(Int32 depth, Int32 maxDepth)
+        public void Tree(Int32 depth, Int32 maxDepth, Int32 subMove, Int32 maxSubMove)
         {
             Field.Item Virus = player ? Field.Item.Virus2 : Field.Item.Virus1;
             Field.Item Zombie = player ? Field.Item.Zombie2 : Field.Item.Zombie1;
@@ -71,22 +71,23 @@ namespace VirusWar
                             {
                                 if (n.rating > node.min)
                                     node.min = n.rating;
-                                
                             }
                         }
-
+                        
                         // alpha-cut
                         if (node.min > node.rating)
                             continue;
                         // beta-cut
                         if (node.max < node.rating)
                             continue;
-
-                        node.Tree(depth + 1, maxDepth);
+                        
+                        if(subMove >= maxSubMove) //switch player
+                            node.Tree(depth + 1, maxDepth, 1, maxSubMove);
+                        else
+                            node.Tree(depth, maxDepth, subMove +1, maxSubMove);
                         
                         children.Add(node);
-                    }
-                           
+                    }      
                 }
             }
 
@@ -116,6 +117,5 @@ namespace VirusWar
                     rating = n.rating;
             }
         }
-
     }
 }
