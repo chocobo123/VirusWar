@@ -150,17 +150,10 @@ namespace VirusWar
                     xVal = 0;
                     yVal = 0;
 
-                    if (field.isItemEmpty(xVal, yVal))
-                    {
-                        field.setItem(xVal, yVal, Field.Item.Virus2);
-                        i++;
-                    }
-                    else
+                    if (!field.isItemEmpty(xVal, yVal))
                     {
                         xVal = field.size - 1; // opposite field
                         xVal = field.size - 1;
-                        field.setItem(xVal, yVal, Field.Item.Virus2);
-                        i++;
                     }
 
                 }
@@ -169,17 +162,10 @@ namespace VirusWar
                     xVal = 0;
                     yVal = field.size - 1;
 
-                    if (field.isItemEmpty(xVal, yVal))
-                    {
-                        field.setItem(xVal, yVal, Field.Item.Virus2);
-                        i++;
-                    }
-                    else
+                    if (!field.isItemEmpty(xVal, yVal))
                     {
                         xVal = field.size - 1;  // opposite field
                         xVal = 0;
-                        field.setItem(xVal, yVal, Field.Item.Virus2);
-                        i++;
                     }
                 }
                 else if (pseuNum == 3)
@@ -187,17 +173,11 @@ namespace VirusWar
                     xVal = field.size - 1;
                     yVal = 0;
 
-                    if (field.isItemEmpty(xVal, yVal))
-                    {
-                        field.setItem(xVal, yVal, Field.Item.Virus2);
-                        i++;
-                    }
-                    else
+                    if (!field.isItemEmpty(xVal, yVal))
                     {
                         xVal = 0;   // opposite field
                         xVal = field.size - 1;
-                        field.setItem(xVal, yVal, Field.Item.Virus2);
-                        i++;
+
                     }
                 }
                 else
@@ -205,27 +185,22 @@ namespace VirusWar
                     xVal = field.size - 1;
                     yVal = field.size - 1;
 
-                    if (field.isItemEmpty(xVal, yVal))
-                    {
-                        field.setItem(xVal, yVal, Field.Item.Virus2);
-                        i++;
-                    }
-                    else
+                    if (!field.isItemEmpty(xVal, yVal))
                     {
                         xVal = 0;   // opposite field
                         xVal = 0;
-                        field.setItem(xVal, yVal, Field.Item.Virus2);
-                        i++;
                     }
                 }
-                //pcMoves.Add(new Point(xVal, yVal));
+
+                field.setItem(xVal, yVal, Field.Item.Virus2);
+                i++;
 
             }
             #endregion
             else
             {
                 TreeNode tree = new TreeNode(field, control);
-                tree.Tree(4);
+                tree.Tree(1,4);
                 if (tree.children.Count > 0)
                 {
                     foreach (TreeNode n in tree.children)
@@ -387,12 +362,13 @@ namespace VirusWar
 
         private void instructionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("...", "VirusWar - Instructions", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Virus War is a two-player-game and is played on a 5x5 board. Player 1 plays with the blue colored viruses and zombies and player 2, or rather the computer-player, plays with the red colored viruses and zombies. Every player has 2 moves in a row. A player loses the game if he can not make those 2 moves. You can place a virus on an empty square of the board but this must be connected with a virus of the same color. A zombie can be placed on a virus of an other player but it also must be connected with a virus of the same color. The first placed virus must be in an corner of the board. "
+            + "Start the game with 'GAME – start'.", "VirusWar - Instructions", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void abotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("...", "VirusWar - About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("This game was programmed by Monika Chromik, a student from the University of Technology Poznan.", "VirusWar - About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
@@ -416,7 +392,7 @@ namespace VirusWar
         // reset
         private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            field = new Field(11);
+            field = new Field(5);
             startGame = false;
             toolStripMenuItem1.Enabled = true;
             control = true;

@@ -16,6 +16,7 @@ namespace VirusWar
         public Int32 max = Int32.MaxValue;
         public Int32 rating;
         public Point pos = Point.Empty;
+        
 
         public TreeNode(Field currentField, Boolean player) //without parent, first node
         {
@@ -30,12 +31,12 @@ namespace VirusWar
             this.parent = parent;
         }
 
-        public void Tree(Int32 depth)
+        public void Tree(Int32 depth, Int32 maxDepth)
         {
             Field.Item Virus = player ? Field.Item.Virus2 : Field.Item.Virus1;
             Field.Item Zombie = player ? Field.Item.Zombie2 : Field.Item.Zombie1;
 
-            if (depth < 2)
+            if (depth >= maxDepth)
             {
                 rating = field.ratingfunction(!player);
                 return;
@@ -63,24 +64,25 @@ namespace VirusWar
                         {
                             if (depth % 2 == 0)
                             {
-                                if (n.rating > node.min)
-                                    node.min = n.rating;  
+                                 if (n.rating < node.max)
+                                    node.max = n.rating; 
                             }
                             else
                             {
-                                if (n.rating < node.max)
-                                    node.max = n.rating;
+                                if (n.rating > node.min)
+                                    node.min = n.rating;
+                                
                             }
                         }
 
                         // alpha-cut
                         if (node.min > node.rating)
-                            return;
+                            continue;
                         // beta-cut
                         if (node.max < node.rating)
-                            return;
-                        
-                        node.Tree(depth - 1);
+                            continue;
+
+                        node.Tree(depth + 1, maxDepth);
                         
                         children.Add(node);
                     }
@@ -92,10 +94,7 @@ namespace VirusWar
             if (depth % 2 == 0)
                 minimum();
             else
-                maximum();
-
-            
-            
+                maximum();   
         }
 
         public void maximum()
