@@ -11,37 +11,21 @@ namespace VirusWar
 {
     public partial class Form1 : Form
     {
-        Field field;
+        Field field = null;
         Boolean control = true;
         Int32 bigRound = 1;
         Int32 curSubMove = 1;
         Boolean pcTurn = false;
         Boolean startGame = false;
-        Int32 maxSubMoves;
-        Int32 maxDepth;
-        Int32 fieldSize=5;
+        Int32 maxSubMoves = 2;
+        Int32 maxDepth = 4;
+        Int32 fieldSize = 5;
         
         public Form1()
         {
             InitializeComponent();
             pictureBox1.Visible = false;
-            /*
-            if (toolStripMenuItem4.Checked)
-                fieldSize = 5;
-            else if (toolStripMenuItem5.Checked)
-                fieldSize = 5;
-            else if (toolStripMenuItem6.Checked)
-                fieldSize = 7;
-            else if (toolStripMenuItem7.Checked)
-                fieldSize = 9;
-            else
-                fieldSize = 11;
-             */
 
-            field = new Field(fieldSize);
-
-            pictureBox1.Width = Field.ItemSize * field.size + 1;
-            pictureBox1.Height = Field.ItemSize * field.size + 1;
             label2.Text = "";
             label3.Text = "";
             label4.Text = "";
@@ -339,7 +323,9 @@ namespace VirusWar
             searchDepth2ToolStripMenuItem.Checked = false;
             searchDepth3ToolStripMenuItem.Checked = false;
             searchDepth4ToolStripMenuItem.Checked = false;
-            searchDepth5ToolStripMenuItem.Checked = false;  
+            searchDepth5ToolStripMenuItem.Checked = false;
+
+            maxDepth = 1;
         }
 
         private void searchDepth2ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -349,6 +335,8 @@ namespace VirusWar
             searchDepth3ToolStripMenuItem.Checked = false;
             searchDepth4ToolStripMenuItem.Checked = false;
             searchDepth5ToolStripMenuItem.Checked = false;
+
+            maxDepth = 2;
         }
 
         private void searchDepth3ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -358,6 +346,8 @@ namespace VirusWar
             searchDepth3ToolStripMenuItem.Checked = true;
             searchDepth4ToolStripMenuItem.Checked = false;
             searchDepth5ToolStripMenuItem.Checked = false;
+
+            maxDepth = 3;
         }
 
         private void searchDepth4ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -367,6 +357,8 @@ namespace VirusWar
             searchDepth3ToolStripMenuItem.Checked = false;
             searchDepth4ToolStripMenuItem.Checked = true;
             searchDepth5ToolStripMenuItem.Checked = false;
+
+            maxDepth = 4;
         }
 
         private void searchDepth5ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -376,6 +368,8 @@ namespace VirusWar
             searchDepth3ToolStripMenuItem.Checked = false;
             searchDepth4ToolStripMenuItem.Checked = false;
             searchDepth5ToolStripMenuItem.Checked = true;
+
+            maxDepth = 5;
         }
 
         private void instructionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -391,6 +385,11 @@ namespace VirusWar
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            field = new Field(fieldSize);
+
+            pictureBox1.Width = Field.ItemSize * fieldSize + 1;
+            pictureBox1.Height = Field.ItemSize * fieldSize + 1;
+
             startGame = true;
             pictureBox1.Visible = true;
 
@@ -405,30 +404,18 @@ namespace VirusWar
                 label3.Text = "Player 2's turn.";
             label4.Text = "You have " + (maxSubMoves - curSubMove + 1) + " moves.";
 
-            if (toolStripMenuItem4.Checked)
-                maxSubMoves = 1;
-            else if (toolStripMenuItem5.Checked)
-                maxSubMoves = 2;
-            else if (toolStripMenuItem6.Checked)
-                maxSubMoves = 3;
-            else if (toolStripMenuItem7.Checked)
-                maxSubMoves = 4;
-            else
-                maxSubMoves = 5;
-
             toolStripMenuItem1.Enabled = false;
         }
 
         // reset
         private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            field = new Field(fieldSize);
             startGame = false;
             toolStripMenuItem1.Enabled = true;
             control = true;
+            pcTurn = false;
             bigRound = 1;
             curSubMove = 1;
-            pcTurn = false;
             pictureBox1.Visible = false;
             label2.Text = "";
             label3.Text = "";
@@ -445,6 +432,9 @@ namespace VirusWar
             toolStripMenuItem6.Checked = false;
             toolStripMenuItem7.Checked = false;
             toolStripMenuItem8.Checked = false;
+
+            maxSubMoves = 1;
+            fieldSize = 5;
         }
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
@@ -454,6 +444,9 @@ namespace VirusWar
             toolStripMenuItem6.Checked = false;
             toolStripMenuItem7.Checked = false;
             toolStripMenuItem8.Checked = false;
+
+            maxSubMoves = 2;
+            fieldSize = 5;
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -463,6 +456,9 @@ namespace VirusWar
             toolStripMenuItem6.Checked = true; // three moves
             toolStripMenuItem7.Checked = false;
             toolStripMenuItem8.Checked = false;
+
+            maxSubMoves = 3;
+            fieldSize = 7;
         }
 
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
@@ -472,6 +468,9 @@ namespace VirusWar
             toolStripMenuItem6.Checked = false;
             toolStripMenuItem7.Checked = true; // four moves
             toolStripMenuItem8.Checked = false;
+
+            maxSubMoves = 4;
+            fieldSize = 9;
         }
 
         private void toolStripMenuItem8_Click(object sender, EventArgs e)
@@ -481,6 +480,9 @@ namespace VirusWar
             toolStripMenuItem6.Checked = false;
             toolStripMenuItem7.Checked = false;
             toolStripMenuItem8.Checked = true; // five moves
+
+            maxSubMoves = 5;
+            fieldSize = 11;
         }
 
         #endregion
