@@ -148,9 +148,6 @@ namespace VirusWar
             else
                 maxDepth = 5;
 
-            TreeNode tree = new TreeNode(field, control);
-            tree.Tree(1, maxDepth, curSubMove, maxSubMoves);
-
             #region "set first virus"
             if (curSubMove == 1 && bigRound < 3)
             {
@@ -203,16 +200,14 @@ namespace VirusWar
                 }
 
                 field.setItem(xVal, yVal, Field.Item.Virus2);
-                //TreeNode node = new TreeNode(field,!control);
-                //tree.children.Add(node);
                 curSubMove++;
 
             }
             #endregion
             else
             {
-                //TreeNode tree = new TreeNode(field, control);
-                //tree.Tree(1, maxDepth, curSubMove, maxSubMoves);
+                TreeNode tree = new TreeNode(field, control);
+                tree.Tree(1, maxDepth, curSubMove, maxSubMoves);
                 if (tree.children.Count > 0)
                 {
                     foreach (TreeNode n in tree.children)
