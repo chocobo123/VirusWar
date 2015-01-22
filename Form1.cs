@@ -106,6 +106,8 @@ namespace VirusWar
                     else
                         label6.Text = "Player 1 wins!";
 
+                    startGame = false;
+
                     label2.Text = "";
                     label3.Text = "";
                     label4.Text = "";
@@ -145,6 +147,9 @@ namespace VirusWar
                 maxDepth = 4;
             else
                 maxDepth = 5;
+
+            TreeNode tree = new TreeNode(field, control);
+            tree.Tree(1, maxDepth, curSubMove, maxSubMoves);
 
             #region "set first virus"
             if (curSubMove == 1 && bigRound < 3)
@@ -198,14 +203,16 @@ namespace VirusWar
                 }
 
                 field.setItem(xVal, yVal, Field.Item.Virus2);
+                //TreeNode node = new TreeNode(field,!control);
+                //tree.children.Add(node);
                 curSubMove++;
 
             }
             #endregion
             else
             {
-                TreeNode tree = new TreeNode(field, control);
-                tree.Tree(1, maxDepth, curSubMove, maxSubMoves);
+                //TreeNode tree = new TreeNode(field, control);
+                //tree.Tree(1, maxDepth, curSubMove, maxSubMoves);
                 if (tree.children.Count > 0)
                 {
                     foreach (TreeNode n in tree.children)
@@ -226,6 +233,8 @@ namespace VirusWar
                         label6.Text = "Player 1 wins!";
                     else
                         label6.Text = "Player 2 wins!";
+
+                    startGame = false;
 
                     label2.Text = "";
                     label3.Text = "";
@@ -260,6 +269,8 @@ namespace VirusWar
                         label6.Text = "Player 2 wins!";
                     else
                         label6.Text = "Player 1 wins!";
+
+                    startGame = false;
 
                     label2.Text = "";
                     label3.Text = "";
@@ -391,6 +402,17 @@ namespace VirusWar
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            control = true;
+            pcTurn = false;
+            bigRound = 1;
+            curSubMove = 1;
+            pictureBox1.Visible = false;
+            label2.Text = "";
+            label3.Text = "";
+            label4.Text = "";
+            label6.Text = "";
+            pictureBox1.Refresh();
+
             field = new Field(fieldSize);
 
             pictureBox1.Width = Field.ItemSize * fieldSize + 1;
