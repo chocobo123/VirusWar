@@ -13,10 +13,10 @@ namespace VirusWar
     {
         Field field = null;
         Boolean control = true;
-        Int32 bigRound = 1;
-        Int32 curSubMove = 1;
         Boolean pcTurn = false;
         Boolean startGame = false;
+        Int32 bigRound = 1;
+        Int32 curSubMove = 1;
         Int32 maxSubMoves = 2;
         Int32 maxDepth = 4;
         Int32 fieldSize = 5;
@@ -134,8 +134,6 @@ namespace VirusWar
         {
             int xVal;
             int yVal;
-            List<Point> pcMoves = new List<Point>();
-            List<Field> possibleMoves = new List<Field>();
 
             if (searchDepth1ToolStripMenuItem.Checked)
                 maxDepth = 1;
@@ -374,8 +372,8 @@ namespace VirusWar
 
         private void instructionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Virus War is a two-player-game and is played on a 5x5 board. Player 1 plays with the blue colored viruses and zombies and player 2, or rather the computer-player, plays with the red colored viruses and zombies. Every player has 2 moves in a row. A player loses the game if he can not make those 2 moves. You can place a virus on an empty square of the board but this must be connected with a virus of the same color. A zombie can be placed on a virus of an other player but it also must be connected with a virus of the same color. The first placed virus must be in an corner of the board. "
-            + "Start the game with 'GAME – start'.", "VirusWar - Instructions", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Virus War is a two-player-game and is played on a square board. Player 1 plays with the blue colored viruses and zombies and player 2, or rather the computer-player, plays with the red colored viruses and zombies. Before starting the game you can choose the player mode, the number of moves, who starts the game and the depth of the searching algorithm for the computer-player. The moves must executed in rotation. A player loses the game if he can not make his moves. You can place a virus on an empty square of the board but this must be connected with a virus of the same color. A zombie can be placed on a virus of an other player but it also must be connected with a virus of the same color. The first placed virus must be in a corner of the board. Around the viruses and zombies there are some circles which show you the possible moves. "
+            + "Start the game with 'GAME – start'.'.", "VirusWar - Instructions", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void abotToolStripMenuItem_Click(object sender, EventArgs e)
