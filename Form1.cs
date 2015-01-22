@@ -372,8 +372,16 @@ namespace VirusWar
 
         private void instructionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Virus War is a two-player-game and is played on a square board. Player 1 plays with the blue colored viruses and zombies and player 2, or rather the computer-player, plays with the red colored viruses and zombies. Before starting the game you can choose the player mode, the number of moves, who starts the game and the depth of the searching algorithm for the computer-player. The moves must executed in rotation. A player loses the game if he can not make his moves. You can place a virus on an empty square of the board but this must be connected with a virus of the same color. A zombie can be placed on a virus of an other player but it also must be connected with a virus of the same color. The first placed virus must be in a corner of the board. Around the viruses and zombies there are some circles which show you the possible moves. "
-            + "Start the game with 'GAME – start'.'.", "VirusWar - Instructions", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Virus War is a two-player-game and is played on a square board. Player 1 plays with" 
+            + "the blue colored viruses and zombies and player 2, or rather the computer-player, plays with the "
+            + "red colored viruses and zombies.\nBefore starting the game you can choose the player-mode, the " 
+            + "number of moves, who starts the game and the depth of the searching algorithm for the computer-player. "
+            + "The moves must executed in rotation.\nA player loses the game if he can not makes his moves.\nYou "
+            + "can place a virus on an empty square of the board but this must be connected with a virus of the "
+            + "same color. A zombie can be placed on a virus of an other player but it also must be connected with"
+            + " a virus of the same color.\nThe first placed virus must be in a corner of the board. Around the" 
+            +" viruses and zombies there are some circles which show you the possible moves. "
+            + "\nStart the game with 'GAME – start'.", "VirusWar - Instructions", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void abotToolStripMenuItem_Click(object sender, EventArgs e)
