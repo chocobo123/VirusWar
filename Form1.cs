@@ -73,8 +73,9 @@ namespace VirusWar
             else
                 label2.Text = "You can not place your virus there!";
 
+            //switch players turn
             if (curSubMove == maxSubMoves+1)
-            {
+            {   
                 if(twoplayerModeToolStripMenuItem.Checked)
                     control = !control;
                 if(singleplayerModeToolStripMenuItem.Checked)
@@ -84,7 +85,7 @@ namespace VirusWar
                 curSubMove = 1;
             }
 
-            // check if player has wone
+            // check if player/pc has wone
             if (bigRound > 2)
             {
                 Boolean gameOver = true;
@@ -95,6 +96,7 @@ namespace VirusWar
                         if (field.searchForVirus(j, k, control) == true)
                         {
                             gameOver = false;
+                            break;
                         }
                     }
                 }
@@ -131,7 +133,6 @@ namespace VirusWar
             }
         }
         
-
         private void pictureBox1_ComputerClick()
         {
             int xVal;
@@ -206,6 +207,7 @@ namespace VirusWar
             #endregion
             else
             {
+                //create a tree
                 TreeNode tree = new TreeNode(field, control);
                 tree.Tree(1, maxDepth, curSubMove, maxSubMoves);
                 if (tree.children.Count > 0)
@@ -254,6 +256,7 @@ namespace VirusWar
                         if (field.searchForVirus(j, k, control) == true)
                         {
                             gameOver = false;
+                            break;
                         }
                     }
                 }
@@ -275,7 +278,7 @@ namespace VirusWar
                     return;
                 }
             }
-
+            //switch to player 1 turn
             if (curSubMove == maxSubMoves + 1)
             {
                 bigRound++;

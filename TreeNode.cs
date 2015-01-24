@@ -36,6 +36,7 @@ namespace VirusWar
             Field.Item Virus = player ? Field.Item.Virus2 : Field.Item.Virus1;
             Field.Item Zombie = player ? Field.Item.Zombie2 : Field.Item.Zombie1;
 
+            //rating at the end of the tree
             if (depth > maxDepth)
             {
                 rating = field.ratingfunction(!player);

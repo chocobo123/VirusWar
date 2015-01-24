@@ -60,7 +60,7 @@ namespace VirusWar
                         if (field[i, j] == Field.Item.Empty)
                             fitness++;
                         else
-                            fitness += 2;
+                            fitness+=2;
                     }
                 }
             }
