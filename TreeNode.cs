@@ -33,13 +33,13 @@ namespace VirusWar
 
         public void Tree(Int32 depth, Int32 maxDepth, Int32 subMove, Int32 maxSubMove)
         {
-            Field.Item Virus = player ? Field.Item.Virus2 : Field.Item.Virus1;
-            Field.Item Zombie = player ? Field.Item.Zombie2 : Field.Item.Zombie1;
+            Field.Item Virus = player ? Field.Item.Virus1 : Field.Item.Virus2;
+            Field.Item Zombie = player ? Field.Item.Zombie1 : Field.Item.Zombie2;
 
             //rating at the end of the tree
             if (depth > maxDepth)
             {
-                rating = field.ratingfunction(!player);
+                rating = field.ratingfunction(player);
                 return;
             }
 
@@ -47,7 +47,7 @@ namespace VirusWar
             {
                 for (int j = 0; j < field.size; j++)
                 {
-                    if (field.searchForVirus(i, j, !player) == true)
+                    if (field.searchForVirus(i, j, player) == true)
                     {
                         Field newField = new Field(field);
 
@@ -81,11 +81,14 @@ namespace VirusWar
                         // beta-cut
                         if (node.max < node.rating)
                             continue;
-                        
-                        if(subMove >= maxSubMove) //switch player
+
+                        if (subMove >= maxSubMove) //switch player
+                        {
+                            node.player = !player;
                             node.Tree(depth + 1, maxDepth, 1, maxSubMove);
+                        }
                         else
-                            node.Tree(depth, maxDepth, subMove +1, maxSubMove);
+                            node.Tree(depth, maxDepth, subMove + 1, maxSubMove);
                         
                         children.Add(node);
                     }      

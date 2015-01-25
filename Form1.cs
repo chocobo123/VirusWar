@@ -108,11 +108,10 @@ namespace VirusWar
                     else
                         label6.Text = "Player 1 wins!";
 
-                    startGame = false;
-
                     label2.Text = "";
                     label3.Text = "";
                     label4.Text = "";
+                    startGame = false;
 
                     pictureBox1.Refresh();
                     return;
@@ -129,6 +128,9 @@ namespace VirusWar
             pictureBox1.Refresh();
             if (pcTurn == true && singleplayerModeToolStripMenuItem.Checked)
             {
+                label3.Text = "";
+                label4.Text = "";
+                control = !control;
                 pictureBox1_ComputerClick();
             }
         }
@@ -226,16 +228,11 @@ namespace VirusWar
                 }
                 else
                 {
-                    if (control == true)
-                        label6.Text = "Player 1 wins!";
-                    else
-                        label6.Text = "Player 2 wins!";
-
-                    startGame = false;
-
+                    label6.Text = "Player 1 wins!";
                     label2.Text = "";
                     label3.Text = "";
                     label4.Text = "";
+                    startGame = false;
 
                     pictureBox1.Refresh();
                     return; 
@@ -253,7 +250,7 @@ namespace VirusWar
                 {
                     for (int k = 0; k < field.size; k++)
                     {
-                        if (field.searchForVirus(j, k, control) == true)
+                        if (field.searchForVirus(j, k, !control) == true)
                         {
                             gameOver = false;
                             break;
@@ -263,16 +260,11 @@ namespace VirusWar
 
                 if (gameOver == true)
                 {
-                    if (control == true)
-                        label6.Text = "Player 2 wins!";
-                    else
-                        label6.Text = "Player 1 wins!";
-
-                    startGame = false;
-
+                    label6.Text = "Player 2 wins!";
                     label2.Text = "";
                     label3.Text = "";
                     label4.Text = "";
+                    startGame = false;
 
                     pictureBox1.Refresh();
                     return;
@@ -283,8 +275,11 @@ namespace VirusWar
             {
                 bigRound++;
                 pcTurn = false;
-                label3.Text = "Player 1's turn.";
+                control = true;
                 curSubMove = 1;
+                label3.Text = "Player 1's turn.";
+                label4.Text = "You have " + (maxSubMoves + 1 - curSubMove) + " moves.";
+                pictureBox1.Refresh();
             }
             else
             {
