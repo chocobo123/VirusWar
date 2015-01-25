@@ -165,7 +165,7 @@ namespace VirusWar
                     if (!field.isItemEmpty(xVal, yVal))
                     {
                         xVal = field.size - 1; // opposite field
-                        xVal = field.size - 1;
+                        yVal = field.size - 1;
                     }
                 }
                 else if (pseuNum == 2)
@@ -176,7 +176,7 @@ namespace VirusWar
                     if (!field.isItemEmpty(xVal, yVal))
                     {
                         xVal = field.size - 1;  // opposite field
-                        xVal = 0;
+                        yVal = 0;
                     }
                 }
                 else if (pseuNum == 3)
@@ -187,7 +187,7 @@ namespace VirusWar
                     if (!field.isItemEmpty(xVal, yVal))
                     {
                         xVal = 0;   // opposite field
-                        xVal = field.size - 1;
+                        yVal = field.size - 1;
                     }
                 }
                 else
@@ -198,7 +198,7 @@ namespace VirusWar
                     if (!field.isItemEmpty(xVal, yVal))
                     {
                         xVal = 0;   // opposite field
-                        xVal = 0;
+                        yVal = 0;
                     }
                 }
 
