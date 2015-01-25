@@ -18,7 +18,7 @@ namespace VirusWar
         Int32 bigRound = 1;
         Int32 curSubMove = 1;
         Int32 maxSubMoves = 2;
-        Int32 maxDepth = 4;
+        Int32 maxDepth = 2;
         Int32 fieldSize = 5;
         
         public Form1()
