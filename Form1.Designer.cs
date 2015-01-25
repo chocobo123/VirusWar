@@ -242,6 +242,8 @@
             // 
             // searchDepth2ToolStripMenuItem
             // 
+            this.searchDepth2ToolStripMenuItem.Checked = true;
+            this.searchDepth2ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.searchDepth2ToolStripMenuItem.Name = "searchDepth2ToolStripMenuItem";
             this.searchDepth2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.searchDepth2ToolStripMenuItem.Text = "2";
@@ -256,8 +258,6 @@
             // 
             // searchDepth4ToolStripMenuItem
             // 
-            this.searchDepth4ToolStripMenuItem.Checked = true;
-            this.searchDepth4ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.searchDepth4ToolStripMenuItem.Name = "searchDepth4ToolStripMenuItem";
             this.searchDepth4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.searchDepth4ToolStripMenuItem.Text = "4";
@@ -285,7 +285,7 @@
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem4.Text = "1";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
@@ -294,28 +294,28 @@
             this.toolStripMenuItem5.Checked = true;
             this.toolStripMenuItem5.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem5.Text = "2";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem6.Text = "3";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem7.Text = "4";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem8.Text = "5";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
             // 
