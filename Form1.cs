@@ -85,7 +85,7 @@ namespace VirusWar
                 curSubMove = 1;
             }
 
-            // check if player/pc has wone
+            // check if player has wone
             if (bigRound > 2)
             {
                 Boolean gameOver = true;
@@ -378,7 +378,8 @@ namespace VirusWar
         {
             MessageBox.Show("Virus War is a two-player-game and is played on a square board. Player 1 plays with" 
             + "the blue colored viruses and zombies and player 2, or rather the computer-player, plays with the "
-            + "red colored viruses and zombies.\nBefore starting the game you can choose the player-mode, the " 
+            + "red colored viruses and zombies. Viruses have a smiled face and zombies are looking unhappy."
+            + "\nBefore starting the game you can choose the player-mode, the " 
             + "number of moves, who starts the game and the depth of the searching algorithm for the computer-player. "
             + "The moves must executed in rotation.\nA player loses the game if he can not makes his moves.\nYou "
             + "can place a virus on an empty square of the board but this must be connected with a virus of the "
